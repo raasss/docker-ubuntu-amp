@@ -55,5 +55,7 @@ RUN set -xe && \
     ln -svf /dev/stdout /var/log/apache2/other_vhosts_access.log && \
     ln -svf /dev/stderr /var/log/apache2/error.log && \
     rm -rvf /var/lib/apt/lists/*
+ADD ./conf/apache2/ /etc/apache2
+ADD ./conf/php/ /etc/php
 EXPOSE 80/tcp 443/tcp
 CMD ["/usr/sbin/apachectl","-DFOREGROUND"]
