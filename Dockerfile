@@ -1,8 +1,7 @@
 FROM ubuntu:16.04
 RUN set -xe && \
-    apt-get update
-RUN set -xe && \
-    apt-get install -y \
+    apt-get update && \
+    DEBIAN_FRONTEND=noninteractive apt-get install -y \
       apache2 libapache2-mod-php7.0 php7.0-mysql python-mysqldb \
       mysql-client-5.7 \
       php7.0-mysql \
@@ -20,7 +19,6 @@ RUN set -xe && \
       php7.0-curl \
       php7.0-cli \
       php7.0-pspell \
-      php7.0-fpm \
       php7.0-odbc \
       php7.0-phpdbg \
       php7.0-recode \
@@ -52,10 +50,10 @@ RUN set -xe && \
       session_cookie session_crypto session_dbd setenvif slotmem_plain \
       slotmem_shm socache_dbm socache_memcache socache_shmcb speling ssl \
       status substitute unique_id userdir usertrack vhost_alias xml2enc && \
-    ln -sf /dev/stdout /var/log/apache2/access.log && \
-    ln -sf /dev/stdout /var/log/apache2/other_vhosts_access.log && \
-    ln -sf /dev/stderr /var/log/apache2/error.log
-RUN rm -rf /var/lib/apt/lists/*
+    a2ensite default-ssl && \
+    ln -svf /dev/stdout /var/log/apache2/access.log && \
+    ln -svf /dev/stdout /var/log/apache2/other_vhosts_access.log && \
+    ln -svf /dev/stderr /var/log/apache2/error.log && \
+    rm -rvf /var/lib/apt/lists/*
 EXPOSE 80/tcp 443/tcp
 CMD ["/usr/sbin/apachectl","-DFOREGROUND"]
-

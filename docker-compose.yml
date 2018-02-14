@@ -1,0 +1,11 @@
+version: '2'
+
+services:
+   web:
+     build: .
+     volumes:
+     - ./html/:/var/www/html/
+     ports:
+     - 10080:80
+     - 10443:443
+

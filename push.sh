@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
 
-docker push raasss/ubuntu-apache-mod-php:latest
+source ./conf.sh
 
+docker push ${NAMESPACE}/${REPOSITORY}:${TAG}
